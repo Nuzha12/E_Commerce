@@ -113,6 +113,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   child: const Text('Back to login'),
                                 ),
                               ),
+                              if (state.error != null) ...[
+                                const SizedBox(height: 8),
+                                Text(
+                                  state.error!,
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                              ]
                             ],
                           ),
                         );

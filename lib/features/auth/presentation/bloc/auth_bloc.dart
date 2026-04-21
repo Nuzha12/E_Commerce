@@ -92,9 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthAppStarted>(_onAppStarted);
     on<AuthLoginRequested>(_onLogin);
     on<AuthRegisterRequested>(_onRegister);
-    on<AuthProfileUpdated>((event, emit) {
-      emit(state.copyWith(status: AuthStatus.authenticated, user: event.user));
-    });
+    on<AuthProfileUpdated>(_onProfileUpdated);
     on<AuthLogoutRequested>(_onLogout);
   }
 
@@ -125,6 +123,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (e) {
       emit(state.copyWith(status: AuthStatus.unauthenticated, error: e.toString(), clearUser: true));
     }
+  }
+
+  void _onProfileUpdated(AuthProfileUpdated event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      status: AuthStatus.authenticated,
+      user: event.user,
+      error: null,
+    ));
   }
 
   Future<void> _onLogout(AuthLogoutRequested event, Emitter<AuthState> emit) async {

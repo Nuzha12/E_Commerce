@@ -63,9 +63,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.getCategoriesUseCase,
   }) : super(const HomeState()) {
     on<HomeLoaded>(_onLoaded);
-    on<HomeCategorySelected>((event, emit) {
-      emit(state.copyWith(selectedCategory: event.category));
-    });
+    on<HomeCategorySelected>(_onCategorySelected);
   }
 
   Future<void> _onLoaded(HomeLoaded event, Emitter<HomeState> emit) async {
@@ -77,5 +75,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       categories: [const CategoryEntity(id: 0, name: 'All'), ...categories],
       loading: false,
     ));
+  }
+
+  void _onCategorySelected(HomeCategorySelected event, Emitter<HomeState> emit) {
+    emit(state.copyWith(selectedCategory: event.category));
   }
 }

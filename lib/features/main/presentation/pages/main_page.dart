@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../cart/presentation/pages/cart_page.dart';
 import '../../../home/presentation/pages/home_page.dart';
-import '../../../profile/presentation/pages/profile_page.dart';
 import '../../../wishlist/presentation/pages/wishlist_page.dart';
-
+import '../../../cart/presentation/pages/cart_page.dart';
+import '../../../profile/presentation/pages/profile_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});

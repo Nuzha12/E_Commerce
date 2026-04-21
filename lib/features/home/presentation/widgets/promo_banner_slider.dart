@@ -106,7 +106,11 @@ class _PromoBannerSliderState extends State<PromoBannerSlider> {
                           topRight: Radius.circular(26),
                           bottomRight: Radius.circular(26),
                         ),
-                        child: Image.network(banner.image, fit: BoxFit.cover, height: double.infinity),
+                        child: Image.network(
+                          banner.image,
+                          fit: BoxFit.cover,
+                          height: double.infinity,
+                        ),
                       ),
                     ),
                   ],

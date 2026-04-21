@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/usecases/get_product_by_id_usecase.dart';
 import '../../domain/usecases/get_products_by_category_usecase.dart';
-import '../../domain/usecases/get_products_usecase.dart';
 import '../../domain/usecases/search_products_usecase.dart';
 
 class ProductState extends Equatable {
@@ -27,10 +26,11 @@ class ProductState extends Equatable {
     bool? loading,
     String? query,
     String? category,
+    bool clearSelected = false,
   }) {
     return ProductState(
       products: products ?? this.products,
-      selectedProduct: selectedProduct ?? this.selectedProduct,
+      selectedProduct: clearSelected ? null : selectedProduct ?? this.selectedProduct,
       loading: loading ?? this.loading,
       query: query ?? this.query,
       category: category ?? this.category,
@@ -71,13 +71,11 @@ class ProductLoadedById extends ProductEvent {
 }
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final GetProductsUseCase getProductsUseCase;
-  final GetProductByIdUseCase getProductByIdUseCase;
   final SearchProductsUseCase searchProductsUseCase;
+  final GetProductByIdUseCase getProductByIdUseCase;
   final GetProductsByCategoryUseCase getProductsByCategoryUseCase;
 
   ProductBloc({
-    required this.getProductsUseCase,
     required this.getProductByIdUseCase,
     required this.searchProductsUseCase,
     required this.getProductsByCategoryUseCase,
@@ -91,6 +89,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       loading: true,
       query: event.query,
       category: event.category,
+      clearSelected: true,
     ));
 
     List<ProductEntity> products;

@@ -6,7 +6,5 @@ class GetProductsByCategoryUseCase {
 
   GetProductsByCategoryUseCase(this.repository);
 
-  Future<List<ProductEntity>> call(String category) {
-    return repository.getProductsByCategory(category);
-  }
+  Future<List<ProductEntity>> call(String category) => repository.getProductsByCategory(category);
 }

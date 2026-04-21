@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/utils/validators.dart';
 import '../../../../core/widgets/custom_button.dart';
-import '../../../../core/widgets/custom_text_field.dart';
 import '../bloc/auth_bloc.dart';
 
 class LoginPage extends StatefulWidget {
@@ -103,6 +102,13 @@ class _LoginPageState extends State<LoginPage> {
                                   child: const Text('Create account'),
                                 ),
                               ),
+                              if (state.error != null) ...[
+                                const SizedBox(height: 8),
+                                Text(
+                                  state.error!,
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                              ]
                             ],
                           ),
                         );

@@ -11,14 +11,10 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserEntity?> getCurrentUser() => dataSource.getCurrentUser();
 
   @override
-  Future<UserEntity> login(String email, String password) {
-    return dataSource.login(email, password);
-  }
+  Future<UserEntity> login(String email, String password) => dataSource.login(email, password);
 
   @override
-  Future<UserEntity> register(String name, String email, String password) {
-    return dataSource.register(name, email, password);
-  }
+  Future<UserEntity> register(String name, String email, String password) => dataSource.register(name, email, password);
 
   @override
   Future<void> logout() => dataSource.logout();

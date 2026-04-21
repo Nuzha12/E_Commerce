@@ -33,19 +33,18 @@ class App extends StatelessWidget {
     final productRepository = ProductRepositoryImpl(ProductLocalDataSource());
     final homeRepository = HomeRepositoryImpl(HomeLocalDataSource());
 
+    final authBloc = AuthBloc(
+      loginUseCase: LoginUseCase(authRepository),
+      registerUseCase: RegisterUseCase(authRepository),
+      getCurrentUserUseCase: GetCurrentUserUseCase(authRepository),
+      logoutUseCase: LogoutUseCase(authRepository),
+    )..add(AuthAppStarted());
+
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => AuthBloc(
-            loginUseCase: LoginUseCase(authRepository),
-            registerUseCase: RegisterUseCase(authRepository),
-            getCurrentUserUseCase: GetCurrentUserUseCase(authRepository),
-            logoutUseCase: LogoutUseCase(authRepository),
-          )..add(AuthAppStarted()),
-        ),
+        BlocProvider<AuthBloc>.value(value: authBloc),
         BlocProvider(
           create: (_) => ProductBloc(
-            getProductsUseCase: GetProductsUseCase(productRepository),
             getProductByIdUseCase: GetProductByIdUseCase(productRepository),
             searchProductsUseCase: SearchProductsUseCase(productRepository),
             getProductsByCategoryUseCase: GetProductsByCategoryUseCase(productRepository),
@@ -63,7 +62,7 @@ class App extends StatelessWidget {
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
-        routerConfig: AppRouter.router,
+        routerConfig: AppRouter.router(authBloc),
       ),
     );
   }
